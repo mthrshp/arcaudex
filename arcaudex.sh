@@ -171,7 +171,7 @@ EOL
 
 ##### Make Init
 
-HKS="HOOKS=(base udev block filesystems keyboard fsck)"
+HKS="HOOKS=(base udev block filesystems autodetect modconf keyboard fsck)"
 
 arch-chroot /mnt/shp /bin/bash <<EOL
 sed -i s:^HOOKS.*:"${HKS}":g /mnt/shp/etc/mkinitcpio.conf
