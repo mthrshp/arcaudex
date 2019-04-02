@@ -13,9 +13,7 @@ PLT=
 
 set -o errexit
 
-INSTALL_DIR="/root/arcaudex.log"
-
-readonly touch ${INSTALL_DIR}
+readonly INSTALL_DIR="/root/arcaudex.log"
 
 if [ -f ${INSTALL_DIR} ]; then rm ${INSTALL_DIR}; fi
 
