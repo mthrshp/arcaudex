@@ -10,17 +10,14 @@ SHP=
 USER=
 ROOT=
 PLT=
+CNT=
+REG=
 
-set -o errexit
+#set -o errexit
 
-readonly INSTALL_DIR="/root/arcaudex.log"
+#readonly LOG="/root/arcaudex.log"
 
-if [ -f ${INSTALL_DIR} ]; then rm ${INSTALL_DIR}; fi
-
-sudo touch ${INSTALL_DIR}
-exec 1>>${INSTALL_DIR}
-exec 2>&1
-
+#logging()
 
 #exec > >(${INSTALL_DIR}  2>/dev/console) 2>&1
 
@@ -143,6 +140,10 @@ JOURNAL=/mnt/shp/etc/systemd/journald.conf
 
 sed -i "s:#SystemMaxUse=:SystemMaxUse=16M:g" ${JOURNAL}
 
+###### Set Storage to Volatile
+
+sed -i "s:#Storage=auto:Storage=volatile:g" ${JOURNAL}
+
 ##### Configure Fstab for Noatime
 
 FSTAB=/mnt/shp/etc/fstab
@@ -151,10 +152,7 @@ sed -i "s:relatime:noatime:g" ${FSTAB}
 
 ##### Configure Locale
 
-CNT=
-REG=
-
-arch-chroot /mnt /bin/bash <<EOL
+arch-chroot /mnt/shp /bin/bash <<EOL
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
 export LANG=en_US.UTF-8
@@ -179,3 +177,10 @@ arch-chroot /mnt/shp /bin/bash <<EOL
 sed -i s:^HOOKS.*:"${HKS}":g /mnt/shp/etc/mkinitcpio.conf
 mkinitcpio -p linux
 EOL
+
+logging() {
+  if [ -f ${LOG} ]; then rm ${LOG}; fi
+  sudo touch ${LOG}
+  exec 1>>${LOG}
+  exec 2>&1
+}
