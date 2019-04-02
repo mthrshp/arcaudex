@@ -60,13 +60,15 @@ sgdisk -p /dev/$SHP
 
 ### Check Partitions
 
-lsblk /dev/${SHP}
+#lsblk /dev/${SHP}
+
+parted -l
 
 ### Create Filesystems
 
-mkfs.fat -F32 /dev/"${SHP}1" # boot partition for uefi
+yes | mkfs.fat -F32 /dev/"${SHP}1" # boot partition for uefi
 
-mkfs.ext4 /dev/"${SHP}2" # root partition
+yes | mkfs.ext4 /dev/"${SHP}2" # root partition
 
 ###### Check
 
