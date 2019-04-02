@@ -11,11 +11,11 @@ USER=
 ROOT=
 PLT=
 
-INSTALL_DIR=/var/log/arcaudex.log
+INSTALL_DIR=/root/arcaudex.log
 
-if [ -e ${INSTALL_DIR} ]; then rm -rf ${INSTALL_DIR}; fi
+if [ -f ${INSTALL_DIR} ]; then rm -rf ${INSTALL_DIR}; fi
 
-touch /var/log/arcaudex.log
+touch ${INSTALL_DIR}
 
 exec > >(${INSTALL_DIR}  2>/dev/console) 2>&1
 
@@ -107,7 +107,7 @@ bootctl install --path /mnt/shp/boot/
 
 INSTALL_DIR=/mnt/shp/boot/loader/loader.conf
 
-if [[ -e ${INSTALL_DIR} ]]; then rm -rf ${INSTALL_DIR}; fi
+if [[ -f ${INSTALL_DIR} ]]; then rm -rf ${INSTALL_DIR}; fi
 
 tee -a >${INSTALL_DIR} <<EOL
 default ${PLT}
