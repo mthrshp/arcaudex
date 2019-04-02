@@ -26,7 +26,7 @@ exec 2>&1
 
 ### Verify boot mode for uefi
 
-ls /sys/firmware/efi/efivars
+# ls /sys/firmware/efi/efivars
 
 ### echo and verify ip connection for internet access
 
