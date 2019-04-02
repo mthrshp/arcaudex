@@ -15,6 +15,8 @@ INSTALL_DIR=/var/log/arcaudex.log
 
 if [ -e ${INSTALL_DIR} ]; then rm -rf ${INSTALL_DIR}; fi
 
+touch /var/log/arcaudex.log
+
 exec > >(${INSTALL_DIR}  2>/dev/console) 2>&1
 
 ### Verify boot mode for uefi
