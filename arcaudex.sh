@@ -13,7 +13,7 @@ PLT=
 
 INSTALL_DIR=/var/log/arcaudex.log
 
-if [ -d ${INSTALL_DIR} ]; then rm -rf ${INSTALL_DIR}; fi
+if [ -e ${INSTALL_DIR} ]; then rm -rf ${INSTALL_DIR}; fi
 
 exec > >(${INSTALL_DIR}  2>/dev/console) 2>&1
 
