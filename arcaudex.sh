@@ -11,13 +11,20 @@ USER=
 ROOT=
 PLT=
 
-INSTALL_DIR=/root/arcaudex.log
+set -o errexit
 
-if [ -f ${INSTALL_DIR} ]; then rm -rf ${INSTALL_DIR}; fi
+INSTALL_DIR="/root/arcaudex.log"
 
-touch ${INSTALL_DIR}
+readonly touch ${INSTALL_DIR}
 
-exec > >(${INSTALL_DIR}  2>/dev/console) 2>&1
+if [ -f ${INSTALL_DIR} ]; then rm ${INSTALL_DIR}; fi
+
+sudo touch ${INSTALL_DIR}
+exec 1>>${INSTALL_DIR}
+exec 2>&1
+
+
+#exec > >(${INSTALL_DIR}  2>/dev/console) 2>&1
 
 ### Verify boot mode for uefi
 
